@@ -10,9 +10,13 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MainContents from './data/MainContents';
 import SubContents from './data/SubContents';
+
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
+import { useNavigate } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -60,11 +64,22 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function HeadSidebar() {
+export default function HeadSidebar({isAuth, setIsAuth}) {
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate()
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const handleLogout = () => {
+    // Googleでログアウト
+    signOut(auth).then(() => {
+      localStorage.clear()
+      setIsAuth(false)
+      navigate("/login")
+    })
+  }
 
   return (
       <>
@@ -96,11 +111,15 @@ export default function HeadSidebar() {
           >
             AppName
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          {isAuth ?
+            <IconButton color="inherit" onClick={handleLogout}>
+              <Badge badgeContent={0} color="secondary">
+                <LogoutIcon />
+              </Badge>
+            </IconButton>
+          :
+            ''
+          }
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

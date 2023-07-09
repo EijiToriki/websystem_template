@@ -40,7 +40,7 @@ function App() {
       <ThemeProvider theme={defaultTheme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
-          <HeadSidebar />
+          <HeadSidebar isAuth={isAuth} setIsAuth={setIsAuth} />
 
           <Box
             component="main"
@@ -60,11 +60,11 @@ function App() {
               {/* ここにルーティングを設定する */}
               <Routes>
                 <Route exact path="/login" element={<Login setIsAuth={setIsAuth} />} />
-                <Route exact path="/main1" element={<Main1 />} />
-                <Route exact path="/main2" element={<Main2 />} />
-                <Route exact path="/main3" element={<Main3 />} />
-                <Route exact path="/sub1" element={<Sub1 />} />
-                <Route exact path="/sub2" element={<Sub2 />} />
+                <Route exact path="/main1" element={<Main1 isAuth={isAuth} />} />
+                <Route exact path="/main2" element={<Main2 isAuth={isAuth} />} />
+                <Route exact path="/main3" element={<Main3 isAuth={isAuth} />} />
+                <Route exact path="/sub1" element={<Sub1 isAuth={isAuth} />} />
+                <Route exact path="/sub2" element={<Sub2 isAuth={isAuth} />} />
               </Routes>
               {/* -------------------------- */}
             </Container>
