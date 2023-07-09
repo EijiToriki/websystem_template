@@ -18,7 +18,6 @@ export default function Login({setIsAuth}) {
 
   const handleSubmit = () => {
     // Googleでログイン
-    console.log('butoon')
     signInWithPopup(auth, provider).then((result) => {
       localStorage.setItem("isAuth", true)
       setIsAuth(true)
@@ -46,8 +45,7 @@ export default function Login({setIsAuth}) {
           </Typography>
           <Box component="form" sx={{ mt: 1 }}>
             <Button
-              onSubmit={handleSubmit}
-              type="submit"
+              onClick={handleSubmit}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
