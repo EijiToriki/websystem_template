@@ -22,8 +22,8 @@ export default function SubContents() {
         <ListItemText primary="Sub1" />
       </ListItemButton>
 
-      <ListItemButton>
-        <ListItemIcon onClick={() => navigate('/sub2')}>
+      <ListItemButton onClick={() => navigate('/sub2')}>
+        <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Sub2" />

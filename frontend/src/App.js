@@ -15,6 +15,7 @@ import Main2 from './components/Main2';
 import Main3 from './components/Main3';
 import Sub1 from './components/Sub1';
 import Sub2 from './components/Sub2';
+import Login from './components/Login';
 
 
 function Copyright(props) {
@@ -33,6 +34,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 function App() {
+  const [isAuth, setIsAuth] = React.useState(false)
   return (
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
@@ -57,18 +59,11 @@ function App() {
 
               {/* ここにルーティングを設定する */}
               <Routes>
-                <Route exact path="main1/" element={<Main1 />} />
-              </Routes>
-              <Routes>
+                <Route exact path="/login" element={<Login setIsAuth={setIsAuth} />} />
+                <Route exact path="/main1" element={<Main1 />} />
                 <Route exact path="/main2" element={<Main2 />} />
-              </Routes>
-              <Routes>
                 <Route exact path="/main3" element={<Main3 />} />
-              </Routes>
-              <Routes>
                 <Route exact path="/sub1" element={<Sub1 />} />
-              </Routes>
-              <Routes>
                 <Route exact path="/sub2" element={<Sub2 />} />
               </Routes>
               {/* -------------------------- */}
