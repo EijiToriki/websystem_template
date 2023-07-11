@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-export default function Main2({isAuth}) {
+export default function Main2({isAuth, userId}) {
   const navigate = useNavigate()
   React.useEffect(() => {
     if(!isAuth){
@@ -9,6 +9,6 @@ export default function Main2({isAuth}) {
     }
   },[])
   return (
-    <div>Main2</div>
+    <div>Main2:Id{userId}がログイン中</div>
   )
 }

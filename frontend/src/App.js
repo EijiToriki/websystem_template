@@ -34,7 +34,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 function App() {
-  const [isAuth, setIsAuth] = React.useState(false)
+  const [isAuth, setIsAuth] = React.useState(localStorage.getItem("isAuth"))
+  const [userId, setUserId] = React.useState(localStorage.getItem("userId"))
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
@@ -59,12 +61,12 @@ function App() {
 
               {/* ここにルーティングを設定する */}
               <Routes>
-                <Route exact path="/login" element={<Login setIsAuth={setIsAuth} />} />
-                <Route exact path="/main1" element={<Main1 isAuth={isAuth} />} />
-                <Route exact path="/main2" element={<Main2 isAuth={isAuth} />} />
-                <Route exact path="/main3" element={<Main3 isAuth={isAuth} />} />
-                <Route exact path="/sub1" element={<Sub1 isAuth={isAuth} />} />
-                <Route exact path="/sub2" element={<Sub2 isAuth={isAuth} />} />
+                <Route exact path="/login" element={<Login setIsAuth={setIsAuth} setUserId={setUserId} />} />
+                <Route exact path="/main1" element={<Main1 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/main2" element={<Main2 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/main3" element={<Main3 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/sub1" element={<Sub1 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/sub2" element={<Sub2 isAuth={isAuth} userId={userId} />} />
               </Routes>
               {/* -------------------------- */}
             </Container>
