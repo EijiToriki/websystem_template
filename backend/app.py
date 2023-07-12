@@ -45,6 +45,75 @@ def userLogin():
   return jsonify(result)
 
 
+@app.route("/signup", methods=['GET', 'POST'])
+def userSignUp():
+  data = request.get_json()
+  name, password = data['name'], data['password']
+
+  dbname = "sample.db"
+  conn = sqlite3.connect(dbname)
+  cur = conn.cursor()
+
+  password = get_digest(password)
+
+  res = cur.execute(
+    "select count(*) from user where user_name = '" + name + "'"
+  ).fetchall()
+
+  conn.commit()
+  conn.close
+
+  result = {}
+  if res[0][0] == 0:
+    insert_user(name, password)
+    result['result'] = select_user_auth(name, password)
+  else:
+    result['result'] = -1
+
+  return jsonify(result) 
+
+
+def insert_user(name, password):
+  dbname = "sample.db"
+  conn = sqlite3.connect(dbname)
+  ## sqliteを操作するカーソルオブジェクトを作成
+  cur = conn.cursor()
+
+  ## データ挿入
+  cur.execute(
+      'insert into user (user_name, password) values(:name, :password)'
+      , {
+          "name": name,
+          "password": password
+        }
+  )
+
+  conn.commit()
+  conn.close
+
+
+# ユーザ名とパスワード検索
+def select_user_auth(name, password):
+  dbname = "sample.db"
+  conn = sqlite3.connect(dbname)
+  ## sqliteを操作するカーソルオブジェクトを作成
+  cur = conn.cursor()
+
+  res = cur.execute(
+    "select id from user where user_name = '" + name + "' and password = '" + password + "'"
+  ).fetchall()
+
+  conn.commit()
+  conn.close
+
+  print(res)
+
+  if len(res) == 0:
+    res = -1
+  else:
+    res = res[0][0]
+
+  return res
 
 if __name__ == '__main__':
    app.run(debug=True, port=5000)

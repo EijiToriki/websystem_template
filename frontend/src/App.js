@@ -16,6 +16,7 @@ import Main3 from './components/Main3';
 import Sub1 from './components/Sub1';
 import Sub2 from './components/Sub2';
 import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 
 function Copyright(props) {
@@ -62,6 +63,7 @@ function App() {
               {/* ここにルーティングを設定する */}
               <Routes>
                 <Route exact path="/login" element={<Login setIsAuth={setIsAuth} setUserId={setUserId} />} />
+                <Route exact path="/signup" element={<SignUp setIsAuth={setIsAuth} setUserId={setUserId} />} />
                 <Route exact path="/main1" element={<Main1 isAuth={isAuth} userId={userId} />} />
                 <Route exact path="/main2" element={<Main2 isAuth={isAuth} userId={userId} />} />
                 <Route exact path="/main3" element={<Main3 isAuth={isAuth} userId={userId} />} />
