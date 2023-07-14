@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 
 # 接続先DBの設定
-DATABASE = 'sqlite:///db.sqlite3'
+DATABASE = 'sqlite:///db/sample.db'
 
 # Engine の作成
 Engine = create_engine(

@@ -1,7 +1,7 @@
-import sqlite3
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+
+from db.user_crud import select_user_id, select_user_count, insert_user
 
 from hash_password import get_digest
 
@@ -18,29 +18,11 @@ def after_request(response):
 @app.route("/login", methods=['GET', 'POST'])
 def userLogin():
   data = request.get_json()
-  name, password = data['name'], data['password']
-
-  dbname = "sample.db"
-  conn = sqlite3.connect(dbname)
-  cur = conn.cursor()
-
-  password = get_digest(password)
-
-  res = cur.execute(
-    "select id from user where user_name = '" + name + "' and password = '" + password + "'"
-  ).fetchall()
-
-  conn.commit()
-  conn.close
-
-  if len(res) == 0:
-    res = -1
-  else:
-    res = res[0][0]
-
+  name = data['name']
+  password = get_digest(data['password'])
 
   result = {}
-  result['result'] = res
+  result['result'] = select_user_id(name, password)
 
   return jsonify(result)
 
@@ -48,72 +30,17 @@ def userLogin():
 @app.route("/signup", methods=['GET', 'POST'])
 def userSignUp():
   data = request.get_json()
-  name, password = data['name'], data['password']
-
-  dbname = "sample.db"
-  conn = sqlite3.connect(dbname)
-  cur = conn.cursor()
-
-  password = get_digest(password)
-
-  res = cur.execute(
-    "select count(*) from user where user_name = '" + name + "'"
-  ).fetchall()
-
-  conn.commit()
-  conn.close
+  name = data['name']
+  password = get_digest(data['password'])  
 
   result = {}
-  if res[0][0] == 0:
+  if select_user_count(name) == 0:
     insert_user(name, password)
-    result['result'] = select_user_auth(name, password)
+    result['result'] = select_user_id(name, password)
   else:
     result['result'] = -1
 
   return jsonify(result) 
-
-
-def insert_user(name, password):
-  dbname = "sample.db"
-  conn = sqlite3.connect(dbname)
-  ## sqliteを操作するカーソルオブジェクトを作成
-  cur = conn.cursor()
-
-  ## データ挿入
-  cur.execute(
-      'insert into user (user_name, password) values(:name, :password)'
-      , {
-          "name": name,
-          "password": password
-        }
-  )
-
-  conn.commit()
-  conn.close
-
-
-# ユーザ名とパスワード検索
-def select_user_auth(name, password):
-  dbname = "sample.db"
-  conn = sqlite3.connect(dbname)
-  ## sqliteを操作するカーソルオブジェクトを作成
-  cur = conn.cursor()
-
-  res = cur.execute(
-    "select id from user where user_name = '" + name + "' and password = '" + password + "'"
-  ).fetchall()
-
-  conn.commit()
-  conn.close
-
-  print(res)
-
-  if len(res) == 0:
-    res = -1
-  else:
-    res = res[0][0]
-
-  return res
 
 if __name__ == '__main__':
    app.run(debug=True, port=5000)

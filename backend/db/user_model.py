@@ -1,14 +1,13 @@
 from sqlalchemy import Column, Integer, String
 
-from setting import Engine
-from setting import Base
+from db.setting import Engine
+from db.setting import Base
 
 
 class User(Base):
     """
     ユーザモデル
     """
-
     __tablename__ = 'users'
     __table_args__ = {
         'comment': 'ユーザー情報のマスターテーブル'
