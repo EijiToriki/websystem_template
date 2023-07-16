@@ -1,15 +1,15 @@
 import React from 'react'
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import MainContents from '../data/MainContents';
-import SubContents from '../data/SubContents';
+import MainContents from './MainContents';
+import SubContents from './SubContents';
 
-export default function SideBarLists() {
+export default function SideBarLists({selected, setSelected}) {
   return (
     <List component="nav">
-      <MainContents />
+      <MainContents selected={selected} setSelected={setSelected} />
       <Divider sx={{ my: 1 }} />
-      <SubContents />
+      <SubContents selected={selected} setSelected={setSelected} />
     </List>
   )
 }

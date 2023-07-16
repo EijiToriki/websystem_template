@@ -6,6 +6,7 @@ export const drawerWidth = 240;
 
 export default function HeadSidebar({isAuth, setIsAuth}) {
   const [open, setOpen] = React.useState(true);
+  const [selected, setSelected] = React.useState(-1)
   const navigate = useNavigate()
 
   const toggleDrawer = () => {
@@ -25,6 +26,8 @@ export default function HeadSidebar({isAuth, setIsAuth}) {
         toggleDrawer={toggleDrawer} 
         handleLogout={handleLogout} 
         isAuth={isAuth} 
+        selected={selected}
+        setSelected={setSelected}
       />
     </>
   )

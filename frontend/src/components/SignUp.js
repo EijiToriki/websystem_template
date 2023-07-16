@@ -4,12 +4,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import SignUpAlert from './atoms/SignUpAlert';
 import SignUpOrganism from './organisms/SignUpOrganism';
+import PasswordAlert from './atoms/PasswordAlert';
 
 const defaultTheme = createTheme();
 
 export default function SignUp({setIsAuth, setUserId}) {
   const navigate = useNavigate()
   const [signUpError, setSignUpError] = React.useState(false)
+  const [passwordError, setPasswordError] = React.useState(false)
 
   const handleSubmit = (event) => {
     const baseURL = "http://127.0.0.1:5000/signup"
@@ -17,7 +19,8 @@ export default function SignUp({setIsAuth, setUserId}) {
     const data = new FormData(event.currentTarget);
     const postData = {
       'name': data.get('username'),
-      'password': data.get('password')
+      'password': data.get('password'),
+      'confirm': data.get('passwordConfirm')
     }
     async function postUser(){
       try{
@@ -31,7 +34,11 @@ export default function SignUp({setIsAuth, setUserId}) {
           setUserId(id)
           navigate('/main1')
         }else{
-          setSignUpError(true)
+          if(id == -1){
+            setSignUpError(true)
+          }else if(id == -2){
+            setPasswordError(true)
+          }
         }
       }catch(error){
         console.log(error)
@@ -44,7 +51,11 @@ export default function SignUp({setIsAuth, setUserId}) {
     <ThemeProvider theme={defaultTheme}>
       {
         signUpError ?
-        <SignUpAlert setSignUpError={setSignUpError} /> : ""
+          <SignUpAlert setSignUpError={setSignUpError} /> 
+        : passwordError ?
+          <PasswordAlert setPasswordError={setPasswordError} />
+        :
+          ""
       }
       <SignUpOrganism handleSubmit={handleSubmit} />
     </ThemeProvider>

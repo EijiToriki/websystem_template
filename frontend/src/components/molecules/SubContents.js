@@ -6,8 +6,13 @@ import ListSubheader from '@mui/material/ListSubheader';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate } from 'react-router-dom';
 
-export default function SubContents() {
+export default function SubContents({selected, setSelected}) {
   const navigate = useNavigate()
+
+  const handleClick = (path, id) => {
+    setSelected(id)
+    navigate(`/${path}`)
+  }
 
   return (
     <React.Fragment>
@@ -15,14 +20,14 @@ export default function SubContents() {
         Sub Contents
       </ListSubheader>
 
-      <ListItemButton onClick={() => navigate('/sub1')}>
+      <ListItemButton onClick={() => handleClick('sub1', 4)} sx={ selected==4 ? { backgroundColor: '#e0e0e0' } : {}} >
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Sub1" />
       </ListItemButton>
 
-      <ListItemButton onClick={() => navigate('/sub2')}>
+      <ListItemButton onClick={() => handleClick('sub2', 5)} sx={ selected==5 ? { backgroundColor: '#e0e0e0' } : {}} >
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>

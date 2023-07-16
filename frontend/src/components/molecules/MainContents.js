@@ -6,29 +6,35 @@ import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { useNavigate } from 'react-router-dom';
 
-export default function MainContents() {
+export default function MainContents({selected, setSelected}) {
   const navigate = useNavigate()
+
+  const handleClick = (path, id) => {
+    setSelected(id)
+    navigate(`/${path}`)
+  }
+
   return (
     <>
       <ListSubheader component="div" inset>
         Main Contents
       </ListSubheader>
 
-      <ListItemButton onClick={() => navigate('/main1')}>
+      <ListItemButton onClick={() => handleClick('main1', 1)} sx={ selected==1 ? { backgroundColor: '#e0e0e0' } : {}} >
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Main1" />
       </ListItemButton>
 
-      <ListItemButton onClick={() => navigate('/main2')}>
+      <ListItemButton onClick={() => handleClick('main2', 2)} sx={ selected==2 ? { backgroundColor: '#e0e0e0' } : {}} >
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Main2" />
       </ListItemButton>
 
-      <ListItemButton onClick={() => navigate('/main3')}>
+      <ListItemButton onClick={() => handleClick('main3', 3)} sx={ selected==3 ? { backgroundColor: '#e0e0e0' } : {}} >
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>

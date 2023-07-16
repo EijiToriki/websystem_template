@@ -33,7 +33,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function DrawerSideBar({open, toggleDrawer}) {
+export default function DrawerSideBar({open, toggleDrawer, selected, setSelected}) {
   return (
     <Drawer variant="permanent" open={open}>
       <Toolbar
@@ -47,7 +47,7 @@ export default function DrawerSideBar({open, toggleDrawer}) {
         <DrawerButton toggleDrawer={toggleDrawer} />
       </Toolbar>
       <Divider />
-      <SideBarLists />
+      <SideBarLists selected={selected} setSelected={setSelected} />
     </Drawer>
   )
 }

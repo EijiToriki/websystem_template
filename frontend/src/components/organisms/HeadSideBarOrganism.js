@@ -2,7 +2,7 @@ import React from 'react'
 import AppBarHeader from '../molecules/AppBarHeader'
 import DrawerSideBar from '../molecules/DrawerSideBar'
 
-export default function HeadSideBarOrganism({open, toggleDrawer, handleLogout, isAuth}) {
+export default function HeadSideBarOrganism({open, toggleDrawer, handleLogout, isAuth, selected, setSelected}) {
   return (
     <>
       <AppBarHeader 
@@ -14,6 +14,8 @@ export default function HeadSideBarOrganism({open, toggleDrawer, handleLogout, i
       <DrawerSideBar 
         open={open} 
         toggleDrawer={toggleDrawer} 
+        selected={selected}
+        setSelected={setSelected}
       />
     </>
   )

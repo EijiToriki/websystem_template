@@ -31,13 +31,21 @@ def userLogin():
 def userSignUp():
   data = request.get_json()
   name = data['name']
-  password = get_digest(data['password'])  
+  password = get_digest(data['password'])
+  confirm = get_digest(data['confirm'])
+
+  print(confirm)
 
   result = {}
   if select_user_count(name) == 0:
-    insert_user(name, password)
-    result['result'] = select_user_id(name, password)
+    if password == confirm:
+      insert_user(name, password)
+      result['result'] = select_user_id(name, password)
+    else:
+      ## パスワードが一致しない
+      result['result'] = -2
   else:
+    ## 既にユーザが存在している
     result['result'] = -1
 
   return jsonify(result) 
