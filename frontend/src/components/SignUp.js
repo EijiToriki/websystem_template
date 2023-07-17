@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import SignUpAlert from './atoms/SignUpAlert';
 import SignUpOrganism from './organisms/SignUpOrganism';
 import PasswordAlert from './atoms/PasswordAlert';
+import EmptyAlert from './atoms/EmptyAlert';
 
 const defaultTheme = createTheme();
 
@@ -12,6 +13,7 @@ export default function SignUp({setIsAuth, setUserId}) {
   const navigate = useNavigate()
   const [signUpError, setSignUpError] = React.useState(false)
   const [passwordError, setPasswordError] = React.useState(false)
+  const [emptyError, setEmptyError] = React.useState(false)
 
   const handleSubmit = (event) => {
     const baseURL = "http://127.0.0.1:5000/signup"
@@ -19,6 +21,7 @@ export default function SignUp({setIsAuth, setUserId}) {
     const data = new FormData(event.currentTarget);
     const postData = {
       'name': data.get('username'),
+      'email': data.get('email'),
       'password': data.get('password'),
       'confirm': data.get('passwordConfirm')
     }
@@ -38,6 +41,8 @@ export default function SignUp({setIsAuth, setUserId}) {
             setSignUpError(true)
           }else if(id == -2){
             setPasswordError(true)
+          }else if(id == -3){
+            setEmptyError(true)
           }
         }
       }catch(error){
@@ -54,6 +59,8 @@ export default function SignUp({setIsAuth, setUserId}) {
           <SignUpAlert setSignUpError={setSignUpError} /> 
         : passwordError ?
           <PasswordAlert setPasswordError={setPasswordError} />
+        : emptyError ?
+          <EmptyAlert setEmptyError={setEmptyError} />
         :
           ""
       }

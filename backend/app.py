@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from db.user_crud import select_user_id, select_user_count, insert_user
+from db.user_crud import select_user_id, select_email_count, insert_user
 
 from hash_password import get_digest
 
@@ -31,21 +31,23 @@ def userLogin():
 def userSignUp():
   data = request.get_json()
   name = data['name']
+  email = data['email']
   password = get_digest(data['password'])
   confirm = get_digest(data['confirm'])
 
-  print(confirm)
-
   result = {}
-  if select_user_count(name) == 0:
+  if name == "" or password == "" or confirm == "":
+    ## 何も入力されていない
+    result['result'] = -3
+  elif select_email_count(email) == 0:
     if password == confirm:
-      insert_user(name, password)
+      insert_user(name, email, password)
       result['result'] = select_user_id(name, password)
     else:
       ## パスワードが一致しない
       result['result'] = -2
   else:
-    ## 既にユーザが存在している
+    ## 既にメールアドレスが存在している
     result['result'] = -1
 
   return jsonify(result) 

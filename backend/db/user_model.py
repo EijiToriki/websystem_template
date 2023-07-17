@@ -15,6 +15,7 @@ class User(Base):
 
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     name = Column('name', String(200))
+    email = Column('email', String(200), unique=True)
     password = Column('password', String(200))
 
 if __name__ == "__main__":
