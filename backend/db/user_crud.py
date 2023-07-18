@@ -13,8 +13,9 @@ def insert_user(name, email, password):
   session.close()
 
 
-def select_user_id(name, password):
-  users = session.query(User.id).filter(User.name==name, User.password==password).all()
+def select_user_id(email, password):
+  users = session.query(User.id).filter(User.email==email, User.password==password).all()
+  print(email, password)
   session.close()
 
   if len(users) == 1:

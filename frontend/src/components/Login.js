@@ -18,7 +18,7 @@ export default function Login({setIsAuth, setUserId}) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const postData = {
-      'name': data.get('username'),
+      'email': data.get('email'),
       'password': data.get('password')
     }
     async function postUser(){

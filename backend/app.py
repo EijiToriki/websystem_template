@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 from db.user_crud import select_user_id, select_email_count, insert_user
 
-from hash_password import get_digest
+from utilities import get_digest, isMail
 
 app = Flask(__name__)
 CORS(app)
@@ -18,11 +18,11 @@ def after_request(response):
 @app.route("/login", methods=['GET', 'POST'])
 def userLogin():
   data = request.get_json()
-  name = data['name']
+  email = data['email']
   password = get_digest(data['password'])
 
   result = {}
-  result['result'] = select_user_id(name, password)
+  result['result'] = select_user_id(email, password)
 
   return jsonify(result)
 
@@ -38,17 +38,19 @@ def userSignUp():
   result = {}
   if name == "" or password == "" or confirm == "":
     ## 何も入力されていない
-    result['result'] = -3
+    result['result'] = -1
+  elif not isMail(email):
+    result['result'] = -2
   elif select_email_count(email) == 0:
     if password == confirm:
       insert_user(name, email, password)
-      result['result'] = select_user_id(name, password)
+      result['result'] = select_user_id(email, password)
     else:
       ## パスワードが一致しない
-      result['result'] = -2
+      result['result'] = -3
   else:
     ## 既にメールアドレスが存在している
-    result['result'] = -1
+    result['result'] = -4
 
   return jsonify(result) 
 

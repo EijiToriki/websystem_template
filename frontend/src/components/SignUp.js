@@ -2,18 +2,17 @@ import * as React from 'react';
 import axios from 'axios'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import SignUpAlert from './atoms/SignUpAlert';
 import SignUpOrganism from './organisms/SignUpOrganism';
-import PasswordAlert from './atoms/PasswordAlert';
-import EmptyAlert from './atoms/EmptyAlert';
+import SignUpErrorCheck from './molecules/SignUpErrorCheck';
 
 const defaultTheme = createTheme();
 
 export default function SignUp({setIsAuth, setUserId}) {
   const navigate = useNavigate()
-  const [signUpError, setSignUpError] = React.useState(false)
-  const [passwordError, setPasswordError] = React.useState(false)
   const [emptyError, setEmptyError] = React.useState(false)
+  const [mailError, setMailError] = React.useState(false)
+  const [passwordError, setPasswordError] = React.useState(false)
+  const [signUpError, setSignUpError] = React.useState(false)
 
   const handleSubmit = (event) => {
     const baseURL = "http://127.0.0.1:5000/signup"
@@ -38,11 +37,13 @@ export default function SignUp({setIsAuth, setUserId}) {
           navigate('/main1')
         }else{
           if(id == -1){
-            setSignUpError(true)
-          }else if(id == -2){
-            setPasswordError(true)
-          }else if(id == -3){
             setEmptyError(true)
+          }else if(id == -2){
+            setMailError(true)
+          }else if(id == -3){
+            setPasswordError(true)
+          }else if(id == -4){
+            setSignUpError(true)
           }
         }
       }catch(error){
@@ -54,16 +55,12 @@ export default function SignUp({setIsAuth, setUserId}) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      {
-        signUpError ?
-          <SignUpAlert setSignUpError={setSignUpError} /> 
-        : passwordError ?
-          <PasswordAlert setPasswordError={setPasswordError} />
-        : emptyError ?
-          <EmptyAlert setEmptyError={setEmptyError} />
-        :
-          ""
-      }
+      <SignUpErrorCheck 
+        emptyError={emptyError} setEmptyError={setEmptyError}
+        mailError={mailError} setMailError={setMailError}
+        passwordError={passwordError} setPasswordError={setPasswordError}
+        signUpError={signUpError} setSignUpError={setSignUpError}
+      />
       <SignUpOrganism handleSubmit={handleSubmit} />
     </ThemeProvider>
   );
