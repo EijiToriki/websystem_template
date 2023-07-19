@@ -1,6 +1,9 @@
-from db.setting import session
-
-from db.user_model import User
+try:
+  from db.setting import session
+  from db.user_model import User
+except ModuleNotFoundError:
+  from setting import session
+  from user_model import User
 
 def insert_user(name, email, password):
   user = User()
@@ -15,7 +18,6 @@ def insert_user(name, email, password):
 
 def select_user_id(email, password):
   users = session.query(User.id).filter(User.email==email, User.password==password).all()
-  print(email, password)
   session.close()
 
   if len(users) == 1:
@@ -26,9 +28,25 @@ def select_user_id(email, password):
 
 def select_user_count(name):
   user_cnt = session.query(User.id).filter(User.name==name).count()
+  session.close()
   return user_cnt
 
 
 def select_email_count(email):
   email_cnt = session.query(User.id).filter(User.email==email).count()
+  session.close()
   return email_cnt
+
+
+
+
+## このスクリプトをコンソールから直接実行したときのみ、実行されるメソッド
+## レコードを全削除する。
+def delete_record():
+  session.query(User).delete()
+  session.commit()
+  print('finished delete user')
+
+
+if __name__ == '__main__':
+  delete_record()

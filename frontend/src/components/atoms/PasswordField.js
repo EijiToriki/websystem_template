@@ -8,7 +8,7 @@ export default function PasswordField() {
       required
       fullWidth
       name="password"
-      label="パスワード"
+      label="パスワード(英数字混合8文字以上)"
       type="password"
       id="password"
       autoComplete="current-password"

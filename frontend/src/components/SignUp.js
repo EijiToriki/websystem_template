@@ -12,6 +12,7 @@ export default function SignUp({setIsAuth, setUserId}) {
   const [emptyError, setEmptyError] = React.useState(false)
   const [mailError, setMailError] = React.useState(false)
   const [passwordError, setPasswordError] = React.useState(false)
+  const [passwordFormError, setPasswordFormError] = React.useState(false)
   const [signUpError, setSignUpError] = React.useState(false)
 
   const handleSubmit = (event) => {
@@ -28,7 +29,6 @@ export default function SignUp({setIsAuth, setUserId}) {
       try{
         const res = await axios.post(baseURL, postData)
         const id = res.data.result
-        console.log(id)
         if(id >= 1){
           localStorage.setItem('isAuth', true)
           setIsAuth(true)
@@ -36,13 +36,20 @@ export default function SignUp({setIsAuth, setUserId}) {
           setUserId(id)
           navigate('/main1')
         }else{
-          if(id == -1){
+          setEmptyError(false)
+          setMailError(false)
+          setPasswordError(false)
+          setPasswordFormError(false)
+          setSignUpError(false)
+          if(id === -1){
             setEmptyError(true)
-          }else if(id == -2){
+          }else if(id === -2){
             setMailError(true)
-          }else if(id == -3){
+          }else if(id === -3){
             setPasswordError(true)
-          }else if(id == -4){
+          }else if(id === -4){
+            setPasswordFormError(true)
+          }else if(id === -5){
             setSignUpError(true)
           }
         }
@@ -59,6 +66,7 @@ export default function SignUp({setIsAuth, setUserId}) {
         emptyError={emptyError} setEmptyError={setEmptyError}
         mailError={mailError} setMailError={setMailError}
         passwordError={passwordError} setPasswordError={setPasswordError}
+        passwordFormError={passwordFormError} setPasswordFormError={setPasswordFormError}
         signUpError={signUpError} setSignUpError={setSignUpError}
       />
       <SignUpOrganism handleSubmit={handleSubmit} />

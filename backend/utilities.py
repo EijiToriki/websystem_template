@@ -14,3 +14,12 @@ def isMail(email):
         return True
     else:
         return False
+
+
+def matchPassword(password):
+    pattern = '\A[a-z\d]{8,100}\Z(?i)'
+
+    if re.match(pattern, password):
+        return True
+    else:
+        return False

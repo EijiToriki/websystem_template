@@ -1,7 +1,11 @@
 from sqlalchemy import Column, Integer, String
 
-from db.setting import Engine
-from db.setting import Base
+try:
+    from db.setting import Engine
+    from db.setting import Base
+except ModuleNotFoundError:
+    from setting import Engine
+    from setting import Base
 
 
 class User(Base):

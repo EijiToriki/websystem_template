@@ -3,6 +3,7 @@ import EmptyAlert from '../atoms/EmptyAlert'
 import MailAlert from '../atoms/MailAlert'
 import PasswordAlert from '../atoms/PasswordAlert'
 import SignUpAlert from '../atoms/SignUpAlert'
+import PasswordFormAlert from '../atoms/PasswordFormAlert'
 
 
 export default function SignUpErrorCheck(props) {
@@ -17,6 +18,8 @@ export default function SignUpErrorCheck(props) {
           <PasswordAlert setPasswordError={props.setPasswordError} />
         : props.signUpError ?
           <SignUpAlert setSignUpError={props.setSignUpError} /> 
+        : props.passwordFormError ?
+          <PasswordFormAlert setPasswordFormError={props.setPasswordFormError} />
         :
           ""
       }
