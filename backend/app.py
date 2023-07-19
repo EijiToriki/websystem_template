@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from db.user_crud import select_user_id, select_email_count, insert_user
+from db.user_crud import select_user_id, select_email_count, select_user_info, insert_user
 
 from utilities import get_digest, isMail, matchPassword
 
@@ -44,7 +44,6 @@ def userSignUp():
     result['result'] = -2
   elif select_email_count(email) == 0:
     if hash_password == hash_confirm:
-      print(password)
       if matchPassword(password):
         insert_user(name, email, hash_password)
         result['result'] = select_user_id(email, hash_password)
@@ -59,6 +58,22 @@ def userSignUp():
     result['result'] = -5
 
   return jsonify(result) 
+
+
+@app.route("/getuser", methods=['GET', 'POST'])
+def getUser():
+  data = request.get_json()
+  id = data['id']
+  res = select_user_info(id)
+
+  result = {}
+  result['id'] = id
+  result['name'] = res[0]
+  result['email'] = res[1]
+
+
+  return jsonify(result)
+
 
 if __name__ == '__main__':
    app.run(debug=True, port=5000)

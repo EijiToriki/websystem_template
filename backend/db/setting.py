@@ -3,8 +3,9 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 
 # 接続先DBの設定
+# DATABASE = 'sqlite:///sample.db'    # レコードを削除する場合は、このパスで実行する
 DATABASE = 'sqlite:///db/sample.db'
-# DATABASE = 'sqlite:///sample.db'
+
 
 # Engine の作成
 Engine = create_engine(
