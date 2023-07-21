@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from db.user_crud import select_user_id, select_email_count, select_user_info, insert_user
+from db.user_crud import select_user_id, select_email_count, select_user_info, insert_user, delete_record
 
-from utilities import get_digest, isMail, matchPassword
+from utilities import get_digest, isMail, matchPassword, send_mail
 
 app = Flask(__name__)
 CORS(app)
@@ -46,6 +46,7 @@ def userSignUp():
     if hash_password == hash_confirm:
       if matchPassword(password):
         insert_user(name, email, hash_password)
+        # send_mail(email)
         result['result'] = select_user_id(email, hash_password)
       else:
         ## パスワードが英数字混合8文字以上でない
@@ -71,7 +72,15 @@ def getUser():
   result['name'] = res[0]
   result['email'] = res[1]
 
+  return jsonify(result)
 
+
+@app.route("/delete")
+def delete():
+  delete_record()
+
+  result = {}
+  result['result'] = 1
   return jsonify(result)
 
 

@@ -2,3 +2,4 @@ npm install axios --save
 npm install @mui/icons-material
 npm install @mui/material @emotion/react @emotion/styled
 npm install react-router-dom
+npm install @react-email/render @sendgrid/mail

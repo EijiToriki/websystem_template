@@ -5,7 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import SignUpOrganism from './organisms/SignUpOrganism';
 import SignUpErrorCheck from './molecules/SignUpErrorCheck';
 
+// import { render } from '@react-email/render'
+// import sendgrid from '@sendgrid/mail'
+// import MailContents from './atoms/MailContents';
+
 const defaultTheme = createTheme();
+
+// sendgrid.setApiKey()
+// const emailHtml = render(<MailContents />)
 
 export default function SignUp({setIsAuth, setUserId}) {
   const navigate = useNavigate()
@@ -34,6 +41,16 @@ export default function SignUp({setIsAuth, setUserId}) {
           setIsAuth(true)
           localStorage.setItem('userId', id)
           setUserId(id)
+          
+          // const options = {
+          //   from: "kt2lage@gmail.com",
+          //   to: postData.email,
+          //   subject: "hello world",
+          //   html: emailHtml
+          // }
+
+          // sendgrid.send(options)
+
           navigate('/main1')
         }else{
           setEmptyError(false)
