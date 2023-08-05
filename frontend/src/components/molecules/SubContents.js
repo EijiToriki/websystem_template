@@ -20,14 +20,14 @@ export default function SubContents({selected, setSelected}) {
         Sub Contents
       </ListSubheader>
 
-      <ListItemButton onClick={() => handleClick('sub1', 4)} sx={ selected==4 ? { backgroundColor: '#e0e0e0' } : {}} >
+      <ListItemButton onClick={() => handleClick('sub1', 4)} sx={ selected===4 ? { backgroundColor: '#e0e0e0' } : {}} >
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
         <ListItemText primary="Sub1" />
       </ListItemButton>
 
-      <ListItemButton onClick={() => handleClick('sub2', 5)} sx={ selected==5 ? { backgroundColor: '#e0e0e0' } : {}} >
+      <ListItemButton onClick={() => handleClick('sub2', 5)} sx={ selected===5 ? { backgroundColor: '#e0e0e0' } : {}} >
         <ListItemIcon>
           <AssignmentIcon />
         </ListItemIcon>
