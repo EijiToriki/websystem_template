@@ -18,7 +18,8 @@ def after_request(response):
 @app.route("/test", methods=['GET'])
 def test():
   result = {}
-  result['test'] = 'test'
+  insert_user(name='eiji', email='eiji.sample.co.jp', password='123')
+  result['result'] = select_user_id(email='eiji.sample.co.jp', password='123')
   return result
 
 

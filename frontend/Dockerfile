@@ -1,3 +1,5 @@
+# docker image build -t react_sample .
+# docker container run -p 3000:3000 react_sample
 FROM node:16-alpine3.17
 
 WORKDIR /frontend
