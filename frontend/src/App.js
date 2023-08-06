@@ -40,23 +40,23 @@ function App() {
   const [userId, setUserId] = React.useState(localStorage.getItem("userId"))
   const [userInfo, setUserInfo] = React.useState(JSON.parse(localStorage.getItem("userInfo")))
 
-  React.useEffect(() => {
-    const baseURL = "http://127.0.0.1:5000/getuser"
-    async function fetchUser(){
-      try{
-        const res = await axios.post(baseURL, {
-          "id": userId
-        })
-        setUserInfo(res.data)
-        localStorage.setItem("userInfo", JSON.stringify(res.data))
-      }catch(error){
-        console.log(error)
-      }
-    }
-    if(isAuth){
-      fetchUser()
-    }
-  }, [isAuth, userId])
+  // React.useEffect(() => {
+  //   const baseURL = "http://127.0.0.1:5000/getuser"
+  //   async function fetchUser(){
+  //     try{
+  //       const res = await axios.post(baseURL, {
+  //         "id": userId
+  //       })
+  //       setUserInfo(res.data)
+  //       localStorage.setItem("userInfo", JSON.stringify(res.data))
+  //     }catch(error){
+  //       console.log(error)
+  //     }
+  //   }
+  //   if(isAuth){
+  //     fetchUser()
+  //   }
+  // }, [isAuth])
 
 
   return (
