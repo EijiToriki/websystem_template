@@ -11,12 +11,17 @@ export default function HeadSideBarOrganism({open, toggleDrawer, handleLogout, i
         handleLogout={handleLogout} 
         isAuth={isAuth} 
       />
-      <DrawerSideBar 
-        open={open} 
-        toggleDrawer={toggleDrawer} 
-        selected={selected}
-        setSelected={setSelected}
-      />
+      {
+        isAuth ?
+          <DrawerSideBar 
+            open={open} 
+            toggleDrawer={toggleDrawer} 
+            selected={selected}
+            setSelected={setSelected}
+          />
+        :
+          <></>
+      }
     </>
   )
 }

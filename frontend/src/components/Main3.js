@@ -1,14 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 
-export default function Main3({isAuth, userInfo}) {
-  const navigate = useNavigate()
-  React.useEffect(() => {
-    if(!isAuth){
-      navigate('/login')
-    }
-  },[])
+export default function Main3({isAuth, userId}) {
   return (
-    <div>Main3:{userInfo['name']}({userInfo['email']})がログイン中</div>
+    <div>Main3: {userId} がログイン中</div>
   )
 }

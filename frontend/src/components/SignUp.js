@@ -7,7 +7,7 @@ import SignUpErrorCheck from './molecules/SignUpErrorCheck';
 
 const defaultTheme = createTheme();
 
-export default function SignUp({setIsAuth, setUserId}) {
+export default function SignUp({setIsAuth, setUserId, setUserInfo}) {
   const navigate = useNavigate()
   const [emptyError, setEmptyError] = React.useState(false)
   const [mailError, setMailError] = React.useState(false)
@@ -34,17 +34,6 @@ export default function SignUp({setIsAuth, setUserId}) {
           setIsAuth(true)
           localStorage.setItem('userId', id)
           setUserId(id)
-
-          const userSetURL = "http://127.0.0.1:5000/getuser"
-          try{
-            const res = await axios.post(userSetURL, {
-              "id": id
-            })
-            localStorage.setItem("userInfo", JSON.stringify(res.data))
-          }catch(error){
-            console.log(error)
-          }
-
           navigate('/main1')
         }else{
           setEmptyError(false)

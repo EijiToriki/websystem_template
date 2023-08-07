@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import * as React from 'react';
-import axios from 'axios';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -38,26 +37,6 @@ const defaultTheme = createTheme();
 function App() {
   const [isAuth, setIsAuth] = React.useState(localStorage.getItem("isAuth"))
   const [userId, setUserId] = React.useState(localStorage.getItem("userId"))
-  const [userInfo, setUserInfo] = React.useState(JSON.parse(localStorage.getItem("userInfo")))
-
-  // React.useEffect(() => {
-  //   const baseURL = "http://127.0.0.1:5000/getuser"
-  //   async function fetchUser(){
-  //     try{
-  //       const res = await axios.post(baseURL, {
-  //         "id": userId
-  //       })
-  //       setUserInfo(res.data)
-  //       localStorage.setItem("userInfo", JSON.stringify(res.data))
-  //     }catch(error){
-  //       console.log(error)
-  //     }
-  //   }
-  //   if(isAuth){
-  //     fetchUser()
-  //   }
-  // }, [isAuth])
-
 
   return (
     <BrowserRouter>
@@ -85,11 +64,11 @@ function App() {
               <Routes>
                 <Route exact path="/login" element={<Login setIsAuth={setIsAuth} setUserId={setUserId} />} />
                 <Route exact path="/signup" element={<SignUp setIsAuth={setIsAuth} setUserId={setUserId} />} />
-                <Route exact path="/main1" element={<Main1 isAuth={isAuth} userInfo={userInfo} />} />
-                <Route exact path="/main2" element={<Main2 isAuth={isAuth} userInfo={userInfo} />} />
-                <Route exact path="/main3" element={<Main3 isAuth={isAuth} userInfo={userInfo} />} />
-                <Route exact path="/sub1" element={<Sub1 isAuth={isAuth} userInfo={userInfo} />} />
-                <Route exact path="/sub2" element={<Sub2 isAuth={isAuth} userInfo={userInfo} />} />
+                <Route exact path="/main1" element={<Main1 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/main2" element={<Main2 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/main3" element={<Main3 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/sub1" element={<Sub1 isAuth={isAuth} userId={userId} />} />
+                <Route exact path="/sub2" element={<Sub2 isAuth={isAuth} userId={userId} />} />
               </Routes>
               {/* -------------------------- */}
             </Container>

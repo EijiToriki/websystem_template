@@ -5,7 +5,7 @@ import HeadSideBarOrganism from './organisms/HeadSideBarOrganism';
 export const drawerWidth = 240;
 
 export default function HeadSidebar({isAuth, setIsAuth}) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(-1)
   const navigate = useNavigate()
 

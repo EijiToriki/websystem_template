@@ -44,7 +44,7 @@ export default function DrawerSideBar({open, toggleDrawer, selected, setSelected
           px: [1],
         }}
       >
-        <DrawerButton toggleDrawer={toggleDrawer} />
+      <DrawerButton toggleDrawer={toggleDrawer} />
       </Toolbar>
       <Divider />
       <SideBarLists selected={selected} setSelected={setSelected} />
