@@ -16,7 +16,7 @@ export default function SignUp({setIsAuth, setUserId, setUserInfo}) {
   const [signUpError, setSignUpError] = React.useState(false)
 
   const handleSubmit = (event) => {
-    const baseURL = "http://127.0.0.1:5000/signup"
+    const baseURL = "http://localhost:5000/signup"
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const postData = {

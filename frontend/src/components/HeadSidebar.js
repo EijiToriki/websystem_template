@@ -16,6 +16,7 @@ export default function HeadSidebar({isAuth, setIsAuth}) {
   const handleLogout = () => {
     localStorage.clear()
     setIsAuth(false)
+    setOpen(false)
     navigate("/login")
   }
 

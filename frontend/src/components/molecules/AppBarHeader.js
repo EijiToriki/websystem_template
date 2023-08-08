@@ -33,8 +33,11 @@ export default function AppBarHeader({open, toggleDrawer, handleLogout, isAuth})
           pr: '24px', // keep right padding when drawer closed
         }}
       >
-        
-        <MenuIconButton open={open} toggleDrawer={toggleDrawer} />
+        {isAuth ?
+          <MenuIconButton open={open} toggleDrawer={toggleDrawer} />
+        :
+          ''
+        }
         <AppNameText />
         {isAuth ?
           <LogOutButton handleLogout={handleLogout} />
