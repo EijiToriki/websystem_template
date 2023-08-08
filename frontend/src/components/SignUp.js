@@ -4,10 +4,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import SignUpOrganism from './organisms/SignUpOrganism';
 import SignUpErrorCheck from './molecules/SignUpErrorCheck';
+import { baseURL } from './general/baseURL';
 
 const defaultTheme = createTheme();
 
-export default function SignUp({setIsAuth, setUserId, setUserInfo}) {
+export default function SignUp({setIsAuth, setUserId}) {
   const navigate = useNavigate()
   const [emptyError, setEmptyError] = React.useState(false)
   const [mailError, setMailError] = React.useState(false)
@@ -16,7 +17,7 @@ export default function SignUp({setIsAuth, setUserId, setUserInfo}) {
   const [signUpError, setSignUpError] = React.useState(false)
 
   const handleSubmit = (event) => {
-    const baseURL = "http://localhost:5000/signup"
+    const URL = baseURL + "/signup"
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const postData = {
@@ -27,7 +28,7 @@ export default function SignUp({setIsAuth, setUserId, setUserInfo}) {
     }
     async function postUser(){
       try{
-        const res = await axios.post(baseURL, postData)
+        const res = await axios.post(URL, postData)
         const id = res.data.result
         if(id >= 1){
           localStorage.setItem('isAuth', true)

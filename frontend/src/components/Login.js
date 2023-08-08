@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import LoginAlert from './atoms/LoginAlert';
 import LoginOrganism from './organisms/LoginOrganism';
+import { baseURL } from './general/baseURL';
 
 
 const defaultTheme = createTheme();
@@ -14,7 +15,7 @@ export default function Login({setIsAuth, setUserId}) {
   const [loginError, setLoginError] = React.useState(false)
 
   const handleSubmit = (event) => {
-    const baseURL = "http://127.0.0.1:5000/login"
+    const URL = baseURL + "/login"
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const postData = {
@@ -23,7 +24,7 @@ export default function Login({setIsAuth, setUserId}) {
     }
     async function postUser(){
       try{
-        const res = await axios.post(baseURL, postData)
+        const res = await axios.post(URL, postData)
         const id = res.data.result
         if(id >= 1){
           localStorage.setItem('isAuth', true)
